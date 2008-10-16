@@ -9,12 +9,6 @@ module Searchgasm
       SEARCH_METHODS = [:all, :find, :first]
       CALCULATION_METHODS = [:average, :calculate, :count, :maximum, :minimum, :sum]
       
-      def self.included(klass)
-        klass.class_eval do
-          attr_accessor :scope
-        end
-      end
-      
       (SEARCH_METHODS + CALCULATION_METHODS).each do |method|
         class_eval <<-"end_eval", __FILE__, __LINE__
           def #{method}(*args)
@@ -27,9 +21,7 @@ module Searchgasm
                 args[0] = klass.primary_key if [nil, :all].include?(args[0])
               end
               args << options
-              result = klass.#{method}(*args)
-              result.uniq! if result.is_a?(Array) && Config.remove_duplicates?
-              result
+              klass.#{method}(*args)
             end
           end
         end_eval

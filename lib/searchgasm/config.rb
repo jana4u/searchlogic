@@ -104,7 +104,7 @@ module Searchgasm
       end
       
       def page_links_next # :nodoc:
-        @page_links_next ||= "Next >"
+        @page_links_next ||= "Next &gt;"
       end
       
       # The default for the :next option for the page_links helper.
@@ -116,7 +116,7 @@ module Searchgasm
       end
       
       def page_links_prev # :nodoc:
-        @page_links_prev ||= "< Prev"
+        @page_links_prev ||= "&lt; Prev"
       end
       
       # The default for the :prev option for the page_links helper.
@@ -152,6 +152,55 @@ module Searchgasm
       # nil means "Show all"
       def per_page_choices=(value)
         @per_page_choices = value
+      end
+      
+      def per_page_show_all_text # :nodoc:
+        @per_page_show_all_text ||= "Show all"
+      end
+      
+      # The default value for the :text option for per_page_links and per_page_select when the page is nil, meaning show all.
+      #
+      # * <tt>Default:</tt> "Show all"
+      # * <tt>Accepts:</tt> String
+      def per_page_show_all_text=(value)
+        @per_page_show_all_text = value
+      end
+      
+      def per_page_text # :nodoc:
+        @per_page_text ||= "%s per page"
+      end
+      
+      # The default value for the :text option for per_page_links and per_page_select when the page is NOT nil. Only one substitution is
+      # passed, which is the per_page value.
+      #
+      # * <tt>Default:</tt> "%s per page"
+      # * <tt>Accepts:</tt> String with substitutions, using rubys % method for strings
+      def per_page_text=(value)
+        @per_page_text = value
+      end
+      
+      def priority_order_by_link_activate_text # :nodoc:
+        @priority_order_by_link_activate_text ||= "Show %s first"
+      end
+      
+      # The default value for the :activate_text option for priority_order_by_link
+      #
+      # * <tt>Default:</tt> "Show %s first"
+      # * <tt>Accepts:</tt> String with substitutions, using rubys % method for strings
+      def priority_order_by_link_activate_text=(value)
+        @priority_order_by_link_activate_text = value
+      end
+      
+      def priority_order_by_link_deactivate_text # :nodoc:
+        @priority_order_by_link_deactivate_text ||= "Don't show %s first"
+      end
+      
+      # The default value for the :deactivate_text option for priority_order_by_link
+      #
+      # * <tt>Default:</tt> "Dont' show %s first"
+      # * <tt>Accepts:</tt> String with substitutions, using rubys % method for strings
+      def priority_order_by_link_deactivate_text=(value)
+        @priority_order_by_link_deactivate_text = value
       end
       
       def remove_duplicates # :nodoc:

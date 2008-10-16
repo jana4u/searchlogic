@@ -45,6 +45,7 @@ class TestActiveRecordBase < Test::Unit::TestCase
     assert_equal Account.find(1, 3), Account.all(:conditions => {:name_contains => "Binary"})
     assert_equal [Account.find(1)], Account.all(:conditions => {:name_contains => "Binary", :users => {:first_name_starts_with => "Ben"}})
     assert_equal [], Account.all(:conditions => {:name_contains => "Binary", :users => {:first_name_starts_with => "Ben", :last_name => "Mills"}})
+    assert_equal Account.find(1, 2), Account.all(:conditions => {:users => {:id_gt => 0}}, :include => :users)
     
     read_only_accounts = Account.all(:conditions => {:name_contains => "Binary"}, :readonly => true)
     assert read_only_accounts.first.readonly?
@@ -84,5 +85,9 @@ class TestActiveRecordBase < Test::Unit::TestCase
     Account.conditions_protected :id_gt, :name_contains
     assert_equal Set.new(["id_gt", "name_contains"]), Account.protected_conditions
     Account.send(:write_inheritable_attribute, :conditions_protected, nil)
+  end
+  
+  def test_includes
+    assert_nothing_raised { Account.all(:conditions => {:users => {:first_name_like => "Ben"}}, :include => :users) }
   end
 end
