@@ -1,6 +1,24 @@
-== 1.4.2 released 2008-10-08
+== 1.5.3 released 2008-10-21
+
+* Removed ilike conditions and let the like condition determine if it should use like or ilike depending on the connection adapter.
+* Fixed bug where the keywords condition was removing foreign characters.
+
+== 1.5.2 released 2008-10-21
+
+* Added ilike conditions
+* Removed configatron dependency (was accidentally added)
+
+== 1.5.1 released 2008-10-20
+
+* Fixed bug with per_page_links
+* Added "ordering_by" class for per_page_links
+
+== 1.5.0 released 2008-10-20
 
 * Merge array of conditions with or or and where it makes sense. Begins with condition does not make sense to join with and, so instead join with or.
+* Cleaned up html validity so it will pass W3C validators
+* Restructure configuration to be more organized and allow for more configuration options.
+* Added more configuration options, especially for class names.
 
 == 1.4.1 released 2008-10-15
 
