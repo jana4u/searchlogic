@@ -32,12 +32,20 @@ module Searchlogic
         def or_conditions(name)
           # First determine if we should even work on the name, we want to be as quick as possible
           # with this.
-          if (parts = split_or_condition(name)).size > 1
-            conditions = interpolate_or_conditions(parts)
-            if conditions.any?
-              conditions
+          begin
+            if (parts = split_or_condition(name)).size > 1
+              conditions = interpolate_or_conditions(parts)
+              if conditions.any?
+                conditions
+              else
+                nil
+              end
+            end
+          rescue Searchlogic::NamedScopes::OrConditions::UnknownConditionError
+            if respond_to?(name)
+              return nil
             else
-              nil
+              raise
             end
           end
         end
